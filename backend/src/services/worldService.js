@@ -79,7 +79,7 @@ export async function buildPhase1Tools(locale = 'en') {
             }),
           },
         },
-        required: ['joined_person_names', 'scene'],
+        required: ['joined_person_names', 'place'],
       },
     },
   },
@@ -946,9 +946,9 @@ export class Phase2LineGenerator {
 
       let result;
       if (withRegex)
-        result = await chatCompletionRegexStopByStream(diaryMessages, { ...this.options, continue_: true }, stopSequences);
+        result = await chatCompletionRegexStopByStream(diaryMessages, { ...this.options , /*continue_: true*/ }, stopSequences);
       else
-        result = await chatCompletionByStream(diaryMessages, { ...this.options, continue_: true }, stopSequences);
+        result = await chatCompletionByStream(diaryMessages, { ...this.options, /*continue_: true*/ }, stopSequences);
 
       if (nextSpeaker && !nextSpeakerInvert)
         return {...result, text: `${nextSpeaker}: ` + result.text};
@@ -1057,7 +1057,7 @@ export function getPhase1MessagesViewForAssistant(messages) {
   for (const turn of messages) {
     if (['super_user', 'super_assistant', 'super_assistant_error'].includes(turn.role))
       continue;
-    result.push({...turn});
+    result.push({...turn, hidden: undefined});
   }
   return result;
 }

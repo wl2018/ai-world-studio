@@ -50,7 +50,7 @@ async function loadPrompts() {
         const result = [];
         for (const v of prompts) {
           assert(v !== undefined);
-          result.push(funSingleTraverse(v));
+          result.push(funSingleTraverse(v, locale));
         }
         return result;
       } else {
