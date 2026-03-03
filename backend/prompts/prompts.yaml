@@ -116,9 +116,9 @@ tool_new_persons_desc:
   zh-CN: "之前没有参与过的角色的长期特质（包含名字），不包含用户。之前参与过的情境中已写过的角色不列出。（本参数内容不对用户公开）"
 
 tool_interaction_type_desc:
-  en: "Interaction type. The meaning of each index: {{interaction_type_list}}"
-  zh-TW: "互動類型。設定的編號所代表的意義：{{interaction_type_list}}"
-  zh-CN: "互动类型。设定的编号所代表的意义：{{interaction_type_list}}"
+  en: "Interaction type (integer). The meaning of each index: {{interaction_type_list}}"
+  zh-TW: "互動類型（整數）。各數值所代表的意義：{{interaction_type_list}}"
+  zh-CN: "互动类型（整数）。各数值所代表的意义：{{interaction_type_list}}"
 
 # ---------------------------------------------------------------------------
 # Phase 1: Tool (create_and_invite) generated prompt

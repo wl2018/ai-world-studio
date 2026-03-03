@@ -298,8 +298,7 @@ async function chatCompletionByStream(messages, options = {}, stopSequences = []
       finish_reason = chunk.choices[0].finish_reason;
       assert(finish_reason !== undefined);
 
-      const gotText = chunk.choices[0].delta.content;
-      assert(gotText !== undefined);
+      const gotText = chunk.choices[0].delta.content || '';
       if (!gotText)
         continue;
 
@@ -417,8 +416,7 @@ async function chatCompletionRegexStopByStream(messages, options = {}, stopSeque
       obj.finish_reason = chunk.choices[0].finish_reason;
       assert(obj.finish_reason !== undefined);
 
-      const gotText = chunk.choices[0].delta.content;
-      assert(gotText !== undefined);
+      const gotText = chunk.choices[0].delta.content || '';
       if (!gotText)
         continue;
 
