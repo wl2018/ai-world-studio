@@ -2,13 +2,13 @@
 
 # AI World Studio
 
-AI World Studio is an AI-powered role-playing world simulator. You can create your own world, describe what you want to do today, and an AI assistant will find a suitable scenario within the world and invite you to join — then you chat directly with characters in that world, as if you were truly living in it.
+AI World Studio is an AI-powered role-playing world simulator. You can create your own world, describe what you want to do today, and an AI assistant will create a suitable scenario within the world and invite you to join — then you chat directly with characters in that world, as if you were truly living in it.
 
 ## Features
 
 - 🌐 **Multi-World Management**: Create and manage multiple independent AI worlds, each with its own settings and history
 - 🎭 **Characters with Memory**: Characters persist across sessions, using per-session interaction summaries as long-term memory — natural and reliable
-- 💬 **Two-Phase Interaction**: In Phase 1, tell the AI assistant what you'd like to do; the assistant finds a scenario and invites you in. In Phase 2, immersively chat directly with characters as if in real conversation
+- 💬 **Two-Phase Interaction**: In Phase 1, tell the AI assistant what you'd like to do; the assistant creates a scenario and invites you in. In Phase 2, immersively chat directly with characters as if in real conversation
 - 📜 **Permanent Session Logs**: All past sessions are fully saved, each with an auto-generated title and summary, accessible at any time
 - 🔌 **OpenAI-Compatible API**: Works with local models or any endpoint that supports Assistant Prefill
 - 🌏 **Multilingual Prompts**: Built-in prompts for Traditional Chinese, Simplified Chinese, and English — automatically activated based on your language setting
@@ -87,7 +87,7 @@ Advanced settings (optional):
 2. Create a new world (set a name, description, and your name in the world)
 3. Start a new session and enter **Phase 1**
 4. Tell the assistant what you'd like to do — e.g., "I want to go to a café" or "catch up with an old friend"
-5. Once the assistant finds a scenario, it will naturally invite you to join (without saying "I'll generate a scenario for you")
+5. Once the assistant creates a scenario, it will naturally invite you to join
 6. Click "Enter World" to begin the **Phase 2** immersive conversation
 7. When finished, click "End Session" — the system auto-generates a summary stored as character memory
 8. Next time you return, the characters still remember everything that happened between you
