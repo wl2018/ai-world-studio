@@ -1,0 +1,162 @@
+{
+  "app": {
+    "name": "AI World Studio",
+    "tagline": "您的 AI 世界模拟器"
+  },
+  "nav": {
+    "back": "← 返回",
+    "logout": "退出登录"
+  },
+  "auth": {
+    "login": {
+      "title": "登录您的账号",
+      "submit": "登录",
+      "submitting": "登录中...",
+      "switchPrompt": "还没有账号？",
+      "switchLink": "立即注册",
+      "error": "登录失败"
+    },
+    "register": {
+      "title": "创建新账号",
+      "submit": "创建账号",
+      "submitting": "创建中...",
+      "switchPrompt": "已有账号？",
+      "switchLink": "立即登录",
+      "error": "注册失败"
+    },
+    "fields": {
+      "username": "账号",
+      "usernamePlaceholder": "请输入账号",
+      "password": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "passwordHint": "请输入密码（至少6个字符）"
+    }
+  },
+  "worlds": {
+    "pageTitle": "我的 AI 世界",
+    "createBtn": "＋ 创建新世界",
+    "loading": "加载中...",
+    "empty": {
+      "message": "还没有任何世界，创建第一个吧！"
+    },
+    "card": {
+      "hasReview": "有回顾",
+      "deleteTitle": "删除此世界"
+    },
+    "create": {
+      "title": "创建新世界",
+      "name": "世界名称",
+      "namePlaceholder": "例：温馨小镇",
+      "description": "世界描述",
+      "descriptionPlaceholder": "描述这个世界的背景、氛围...",
+      "displayName": "您在这个世界的显示名称",
+      "displayNamePlaceholder": "例：Alex",
+      "locale": "这个世界所使用的语言",
+      "advanced": "高级设置",
+      "requirement": "对世界的额外描述",
+      "requirementPlaceholder": "对这个世界的额外描述、需求、限制等等...",
+      "comment": "备注",
+      "commentPlaceholder": "输入不会影响这个世界的备注...",
+      "submit": "创建",
+      "submitting": "创建中...",
+      "cancel": "取消",
+      "error": {
+        "required": "请填写所有字段",
+        "failed": "创建失败"
+      }
+    },
+    "delete": {
+      "title": "⚠️ 删除世界",
+      "warning": "确定要删除「{name}」吗？此操作无法撤销，该世界的所有角色与历史回合都将永久删除。",
+      "confirm": "确定删除",
+      "confirming": "删除中...",
+      "cancel": "取消",
+      "failed": "删除失败"
+    }
+  },
+  "world": {
+    "historicalRounds": "历史回合",
+    "noRounds": "还没有历史回合",
+    "startNewRound": "＋ 开始新回合",
+    "startingRound": "创建中...",
+    "roundInProgress": "回合进行中",
+    "additionalDesc": "额外描述",
+    "notes": "备注",
+    "phase1": {
+      "label": "第一阶段：助手对话",
+      "aiSpeaker": "AI 助手",
+      "discardRound": "丢弃回合",
+      "inputPlaceholder": "描述你想做的事、想见的人...",
+      "send": "发送",
+      "skip": "跳过",
+      "enterNewline": "Enter 换行",
+      "invitationSent": "[已提供邀请]",
+      "invitationSentByCommand": "[用户已通过指令生成了邀请]",
+      "userCommandError": "[用户指令发生错误]"
+    },
+    "phase2": {
+      "label": "第二阶段：世界互动",
+      "endRound": "结束回合",
+      "inputPlaceholder": "{name} 说...",
+      "send": "发送",
+      "skip": "跳过",
+      "goBack": "回退↑",
+      "goBackMulti": "回退⇡",
+      "rejoin": "↩ 继续互动",
+      "allLeft": "🌿 互动已经结束",
+      "allLeftHint": "请按「结束回合」离开",
+      "allowAfterComment": "允许主角后注解",
+      "enterNewline": "Enter 换行",
+      "singleLine": "单行模式",
+      "readyTitle": "准备开始世界互动！",
+      "enterWorld": "进入世界 →",
+      "entering": "进入中..."
+    },
+    "review": {
+      "label": "📝 回合摘要",
+      "activeLabel": "📝 回顾摘要",
+      "close": "完成，关闭回合"
+    },
+    "viewer": {
+      "historyTitle": "历史回合 — {date}",
+      "deleteRound": "删除回合",
+      "close": "✕ 关闭",
+      "phase1Label": "第一阶段：助手对话",
+      "phase2Label": "第二阶段：世界互动"
+    },
+    "discard": {
+      "title": "⚠️ 丢弃回合？",
+      "message": "这回合的内容会全部被丢弃。确定要离开并丢弃这回合的所有内容吗？",
+      "confirm": "确定丢弃",
+      "cancel": "取消"
+    },
+    "finish": {
+      "title": "结束本回合？",
+      "message": "结束后将生成回顾摘要，此回合将成为历史记录，无法再继续。",
+      "confirm": "确定结束",
+      "confirming": "处理中...",
+      "cancel": "取消"
+    },
+    "deleteRound": {
+      "title": "⚠️ 删除历史记录中的这一回合？",
+      "message": "这回合的内容会全部被删除，这意味着之后的剧情不会再参考这回合的记录，这回合的记忆将永久消失。确定要删除这回合的所有内容吗？",
+      "confirm": "确定删除",
+      "cancel": "取消"
+    },
+    "finishing": {
+      "title": "回合处理中",
+      "desc": "AI 正在摘要本回合对话，请稍候…"
+    }
+  },
+  "locale": {
+    "label": "语言",
+    "en": "English",
+    "zh-TW": "繁體中文",
+    "zh-CN": "简体中文"
+  },
+  "worldLocale": {
+    "en": "English（en）",
+    "zh-TW": "繁體中文（zh-TW）",
+    "zh-CN": "简体中文（zh-CN）"
+  }
+}

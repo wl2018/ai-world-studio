@@ -1,0 +1,162 @@
+{
+  "app": {
+    "name": "AI World Studio",
+    "tagline": "Your AI-powered world simulation"
+  },
+  "nav": {
+    "back": "← Back",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "switchPrompt": "Don't have an account?",
+      "switchLink": "Register now",
+      "error": "Login failed"
+    },
+    "register": {
+      "title": "Create a new account",
+      "submit": "Create Account",
+      "submitting": "Creating...",
+      "switchPrompt": "Already have an account?",
+      "switchLink": "Login now",
+      "error": "Registration failed"
+    },
+    "fields": {
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordHint": "Enter password (at least 6 characters)"
+    }
+  },
+  "worlds": {
+    "pageTitle": "My AI Worlds",
+    "createBtn": "＋ Create New World",
+    "loading": "Loading...",
+    "empty": {
+      "message": "No worlds yet. Create your first one!"
+    },
+    "card": {
+      "hasReview": "Has review",
+      "deleteTitle": "Delete this world"
+    },
+    "create": {
+      "title": "Create New World",
+      "name": "World Name",
+      "namePlaceholder": "e.g. Cozy Town",
+      "description": "World Description",
+      "descriptionPlaceholder": "Describe the background and atmosphere of this world...",
+      "displayName": "Your display name in this world",
+      "displayNamePlaceholder": "e.g. Alex",
+      "locale": "The language used in this world",
+      "advanced": "Advanced Settings",
+      "requirement": "Additional World Description",
+      "requirementPlaceholder": "Extra descriptions, constraints, requirements...",
+      "comment": "Notes",
+      "commentPlaceholder": "Internal notes that won't affect the world...",
+      "submit": "Create",
+      "submitting": "Creating...",
+      "cancel": "Cancel",
+      "error": {
+        "required": "Please fill in all required fields",
+        "failed": "Creation failed"
+      }
+    },
+    "delete": {
+      "title": "⚠️ Delete World",
+      "warning": "Are you sure you want to delete \"{name}\"? This action cannot be undone. All characters and history will be permanently deleted.",
+      "confirm": "Delete",
+      "confirming": "Deleting...",
+      "cancel": "Cancel",
+      "failed": "Deletion failed"
+    }
+  },
+  "world": {
+    "historicalRounds": "Historical Rounds",
+    "noRounds": "No historical rounds yet",
+    "startNewRound": "＋ Start New Round",
+    "startingRound": "Creating...",
+    "roundInProgress": "Round in progress",
+    "additionalDesc": "Additional Description",
+    "notes": "Notes",
+    "phase1": {
+      "label": "Phase 1: Assistant Chat",
+      "aiSpeaker": "AI Assistant",
+      "discardRound": "Discard Round",
+      "inputPlaceholder": "Describe what you want to do or who you want to meet...",
+      "send": "Send",
+      "skip": "Skip",
+      "enterNewline": "Enter for newline",
+      "invitationSent": "[Invitation sent]",
+      "invitationSentByCommand": "[The user has generated an invitation through the command]",
+      "userCommandError": "[An error occurred while processing the user instruction]"
+    },
+    "phase2": {
+      "label": "Phase 2: World Interaction",
+      "endRound": "End Round",
+      "inputPlaceholder": "{name} says...",
+      "send": "Send",
+      "skip": "Skip",
+      "goBack": "Back↑",
+      "goBackMulti": "Back⇡",
+      "rejoin": "↩ Continue",
+      "allLeft": "✿ Interaction has ended",
+      "allLeftHint": "Press \"End Round\" to finish",
+      "allowAfterComment": "Allow after-user comment",
+      "enterNewline": "Enter for newline",
+      "singleLine": "Single-line mode",
+      "readyTitle": "Ready to enter the world!",
+      "enterWorld": "Enter World →",
+      "entering": "Entering..."
+    },
+    "review": {
+      "label": "📝 Round Summary",
+      "activeLabel": "📝 Round Review",
+      "close": "Done, close round"
+    },
+    "viewer": {
+      "historyTitle": "Historical Round — {date}",
+      "deleteRound": "Delete Round",
+      "close": "✕ Close",
+      "phase1Label": "Phase 1: Assistant Chat",
+      "phase2Label": "Phase 2: World Interaction"
+    },
+    "discard": {
+      "title": "⚠️ Discard Round?",
+      "message": "All content in this round will be discarded. Are you sure you want to leave and discard everything?",
+      "confirm": "Discard",
+      "cancel": "Cancel"
+    },
+    "finish": {
+      "title": "End this round?",
+      "message": "After ending, a review summary will be generated. This round will become a historical record and cannot be continued.",
+      "confirm": "Confirm",
+      "confirming": "Processing...",
+      "cancel": "Cancel"
+    },
+    "deleteRound": {
+      "title": "⚠️ Delete this round from history?",
+      "message": "All content in this round will be deleted. Future storylines will no longer reference this round's records, and its memories will be permanently lost. Are you sure?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "finishing": {
+      "title": "Processing Round",
+      "desc": "AI is summarizing the round conversation, please wait…"
+    }
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "zh-TW": "繁體中文",
+    "zh-CN": "简体中文"
+  },
+  "worldLocale": {
+    "en": "English (en)",
+    "zh-TW": "Traditional Chinese (zh-TW)",
+    "zh-CN": "Simplified Chinese (zh-CN)"
+  }
+}

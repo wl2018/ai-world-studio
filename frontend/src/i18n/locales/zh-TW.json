@@ -1,0 +1,162 @@
+{
+  "app": {
+    "name": "AI World Studio",
+    "tagline": "您的 AI 世界模擬器"
+  },
+  "nav": {
+    "back": "← 返回",
+    "logout": "登出"
+  },
+  "auth": {
+    "login": {
+      "title": "登入您的帳號",
+      "submit": "登入",
+      "submitting": "登入中...",
+      "switchPrompt": "還沒有帳號？",
+      "switchLink": "立即註冊",
+      "error": "登入失敗"
+    },
+    "register": {
+      "title": "建立新帳號",
+      "submit": "建立帳號",
+      "submitting": "建立中...",
+      "switchPrompt": "已有帳號？",
+      "switchLink": "立即登入",
+      "error": "註冊失敗"
+    },
+    "fields": {
+      "username": "帳號",
+      "usernamePlaceholder": "請輸入帳號",
+      "password": "密碼",
+      "passwordPlaceholder": "請輸入密碼",
+      "passwordHint": "請輸入密碼（至少6字元）"
+    }
+  },
+  "worlds": {
+    "pageTitle": "我的 AI 世界",
+    "createBtn": "＋ 建立新世界",
+    "loading": "載入中...",
+    "empty": {
+      "message": "還沒有任何世界，建立第一個吧！"
+    },
+    "card": {
+      "hasReview": "有回顧",
+      "deleteTitle": "刪除此世界"
+    },
+    "create": {
+      "title": "建立新世界",
+      "name": "世界名稱",
+      "namePlaceholder": "例：溫馨小鎮",
+      "description": "世界描述",
+      "descriptionPlaceholder": "描述這個世界的背景、氛圍...",
+      "displayName": "您在這個世界的顯示名稱",
+      "displayNamePlaceholder": "例：Alex",
+      "locale": "這個世界所使用的語言",
+      "advanced": "進階設定",
+      "requirement": "對世界的額外描述",
+      "requirementPlaceholder": "對這個世界的額外描述、需求、限制等等...",
+      "comment": "註解",
+      "commentPlaceholder": "輸入不會影響這個世界的註解...",
+      "submit": "建立",
+      "submitting": "建立中...",
+      "cancel": "取消",
+      "error": {
+        "required": "請填寫所有欄位",
+        "failed": "建立失敗"
+      }
+    },
+    "delete": {
+      "title": "⚠️ 刪除世界",
+      "warning": "確定要刪除「{name}」嗎？此操作無法復原，該世界的所有角色與歷史回合都將永久刪除。",
+      "confirm": "確定刪除",
+      "confirming": "刪除中...",
+      "cancel": "取消",
+      "failed": "刪除失敗"
+    }
+  },
+  "world": {
+    "historicalRounds": "歷史回合",
+    "noRounds": "還沒有歷史回合",
+    "startNewRound": "＋ 開始新回合",
+    "startingRound": "建立中...",
+    "roundInProgress": "回合進行中",
+    "additionalDesc": "額外描述",
+    "notes": "註解",
+    "phase1": {
+      "label": "第一階段：助理對話",
+      "aiSpeaker": "AI 助理",
+      "discardRound": "丟棄回合",
+      "inputPlaceholder": "描述你想做的事、想見的人...",
+      "send": "送出",
+      "skip": "跳過",
+      "enterNewline": "Enter 換行",
+      "invitationSent": "[已提供邀請]",
+      "invitationSentByCommand": "[使用者已透過指令產生邀請]",
+      "userCommandError": "[使用者指令發生錯誤]"
+    },
+    "phase2": {
+      "label": "第二階段：世界互動",
+      "endRound": "結束回合",
+      "inputPlaceholder": "{name} 說...",
+      "send": "送出",
+      "skip": "跳過",
+      "goBack": "回退↑",
+      "goBackMulti": "回退⇡",
+      "rejoin": "↩ 繼續互動",
+      "allLeft": "🌿 互動已經結束",
+      "allLeftHint": "請按「結束回合」離開",
+      "allowAfterComment": "允許主角後註解",
+      "enterNewline": "Enter 換行",
+      "singleLine": "單行模式",
+      "readyTitle": "準備開始世界互動！",
+      "enterWorld": "進入世界 →",
+      "entering": "進入中..."
+    },
+    "review": {
+      "label": "📝 回合摘要",
+      "activeLabel": "📝 回顧摘要",
+      "close": "完成，關閉回合"
+    },
+    "viewer": {
+      "historyTitle": "歷史回合 — {date}",
+      "deleteRound": "刪除回合",
+      "close": "✕ 關閉",
+      "phase1Label": "第一階段：助理對話",
+      "phase2Label": "第二階段：世界互動"
+    },
+    "discard": {
+      "title": "⚠️ 丟棄回合？",
+      "message": "這回合的內容會全部被丟棄。確定要離開並丟棄這回合的所有內容嗎？",
+      "confirm": "確定丟棄",
+      "cancel": "取消"
+    },
+    "finish": {
+      "title": "結束本回合？",
+      "message": "結束後將生成回顧摘要，此回合將成為歷史紀錄，無法再繼續。",
+      "confirm": "確定結束",
+      "confirming": "處理中...",
+      "cancel": "取消"
+    },
+    "deleteRound": {
+      "title": "⚠️ 刪除歷史紀錄中的這一回合？",
+      "message": "這回合的內容會全部被刪除，這意味著之後的劇情不會再參考這回合的紀錄，這回合的記憶將永久消失。確定要刪除這回合的所有內容嗎？",
+      "confirm": "確定刪除",
+      "cancel": "取消"
+    },
+    "finishing": {
+      "title": "回合處理中",
+      "desc": "AI 正在摘要本回合對話，請稍候…"
+    }
+  },
+  "locale": {
+    "label": "語言",
+    "en": "English",
+    "zh-TW": "繁體中文",
+    "zh-CN": "简体中文"
+  },
+  "worldLocale": {
+    "en": "English（en）",
+    "zh-TW": "繁體中文（zh-TW）",
+    "zh-CN": "简体中文（zh-CN）"
+  }
+}

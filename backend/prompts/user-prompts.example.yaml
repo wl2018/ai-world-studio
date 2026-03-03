@@ -1,0 +1,10 @@
+# Add user-prompts.yaml to override any prompts you want to change
+# You can also add multi-language support for this if you want.
+
+interaction_type:  # All chatting style you can use. You can define new one here to let phase#1 AI assistant to choose
+- name: "online"  # The name to be read by human in the invitation message
+  ai_name: "online chat"  # The name to be read by phase#1 AI assistant
+  prompt: "Mode: Online text message."  # The prompt given to AI for writting chat message
+- name: "face-to-face"
+  ai_name: "face-to-face conversation"
+  prompt: ''  # empty string means don't add prompt for chatting context

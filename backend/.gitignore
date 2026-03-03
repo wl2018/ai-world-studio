@@ -1,0 +1,6 @@
+*.vscode
+.env
+/chat_template/
+node_modules/
+pnpm-*.yaml
+/prompts/user-prompts.yaml
