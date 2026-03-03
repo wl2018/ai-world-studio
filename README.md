@@ -1,29 +1,31 @@
+[繁體中文](./README.zh.md) | English
+
 # AI World Studio
 
-AI World Studio 是一個 AI 驅動的角色扮演世界模擬器。你可以建立自己的世界、描述今天想做什麼，AI 助理會在世界中找到合適的情境並邀請你參與——然後你就直接和世界裡的角色聊天互動，就像真的活在那個世界一樣。
+AI World Studio is an AI-powered role-playing world simulator. You can create your own world, describe what you want to do today, and an AI assistant will find a suitable scenario within the world and invite you to join — then you chat directly with characters in that world, as if you were truly living in it.
 
-## 功能特色
+## Features
 
-- 🌐 **多世界管理**：建立並管理多個獨立的 AI 世界，每個世界有自己的設定與歷史
-- 🎭 **有記憶的角色**：角色跨越每次回合持續存在，以每回合互動摘要作為長期記憶，效果自然且穩定
-- 💬 **兩階段互動設計**：第一階段告訴 AI 助理你今天想做什麼，助理找到情境後邀請你進入；第二階段沉浸式與角色直接聊天，如同真實對話
-- 📜 **永久回合紀錄**：所有歷史回合完整保存，每回合自動生成標題與摘要，可隨時回顧
-- 🔌 **OpenAI 相容 API**：可使用本地模型或任何支援 Assistant Prefill 能力的節點
-- 🌏 **多語言提示詞**：內建繁體中文、簡體中文、英文 prompt，自動依設定語言運作
+- 🌐 **Multi-World Management**: Create and manage multiple independent AI worlds, each with its own settings and history
+- 🎭 **Characters with Memory**: Characters persist across sessions, using per-session interaction summaries as long-term memory — natural and reliable
+- 💬 **Two-Phase Interaction**: In Phase 1, tell the AI assistant what you'd like to do; the assistant finds a scenario and invites you in. In Phase 2, immersively chat directly with characters as if in real conversation
+- 📜 **Permanent Session Logs**: All past sessions are fully saved, each with an auto-generated title and summary, accessible at any time
+- 🔌 **OpenAI-Compatible API**: Works with local models or any endpoint that supports Assistant Prefill
+- 🌏 **Multilingual Prompts**: Built-in prompts for Traditional Chinese, Simplified Chinese, and English — automatically activated based on your language setting
 
-## 快速啟動
+## Quick Start
 
-### 後端
+### Backend
 
 ```bash
 cd backend
 npm install
 cp .env.example .env
-# 編輯 .env，填入你的 AI API 設定
+# Edit .env and fill in your AI API settings
 npm run dev
 ```
 
-### 前端
+### Frontend
 
 ```bash
 cd frontend
@@ -31,11 +33,11 @@ npm install
 npm run dev
 ```
 
-前端預設在 `http://localhost:5173`，API 請求自動代理至後端 `3001` port。`npm` 也可替換成 `pnpm`。
+The frontend runs at `http://localhost:5173` by default, with API requests automatically proxied to the backend on port `3001`. You can replace `npm` with `pnpm`.
 
-## 模型節點設定
+## Model Endpoint Configuration
 
-**第一階段**：須支援 Function Calling，包含大部分的線上服務商，和大部分本地模型伺服器：
+**Phase 1**: Must support Function Calling. Compatible with most online providers and local model servers, including:
 
 - KoboldCpp
 - Ollama
@@ -43,25 +45,25 @@ npm run dev
 - vLLM
 - ...
 
-**第二階段**：
+**Phase 2**:
 
-第二階段角色互動的效果，取決於節點支援的 API 能力。請依照你的節點能力選擇 `PHASE2_PROMPTING_METHOD`：
+The quality of Phase 2 character interaction depends on the API capabilities of your endpoint. Choose `PHASE2_PROMPTING_METHOD` based on what your endpoint supports:
 
-| 方法 | 說明 | 適用情境 |
-|------|------|----------|
-| `0` | 標準 `/v1/chat/completions`，無 prefill | 通用 fallback，效果較基本 |
-| `1` | `/v1/chat/completions` + assistant prefill | **建議優先嘗試**，需節點支援 assistant prefill |
-| `3` / `4` / `5` | `/v1/completions` 原始文字補全模式 | 進階用法，需節點支援 |
+| Method | Description | Use Case |
+|--------|-------------|----------|
+| `0` | Standard `/v1/chat/completions`, no prefill | General fallback, basic results |
+| `1` | `/v1/chat/completions` + assistant prefill | **Recommended first choice** — requires endpoint to support assistant prefill |
+| `3` / `4` / `5` | `/v1/completions` raw text completion mode | Advanced usage, requires endpoint support |
 
-## 環境設定
+## Environment Configuration
 
-產生 JWT_SECRET：
+Generate a JWT_SECRET:
 
 ```bash
 dd if=/dev/urandom bs=1 count=33 2>/dev/null | base64
 ```
 
-複製 `backend/.env.example` 為 `backend/.env`，至少填入以下欄位：
+Copy `backend/.env.example` to `backend/.env` and fill in at least the following fields:
 
 ```env
 PORT=3001
@@ -72,31 +74,31 @@ API_KEY=your-api-key-here
 MODEL=
 ```
 
-進階設定（可選）：
+Advanced settings (optional):
 
-- **分離第二階段模型**：設定 `PHASE2_BASE_URL` / `PHASE2_MODEL` 可讓第一、二階段使用不同模型
-- **針對推理模型**：使用 `PHASE2_PROMPTING_METHOD=1` 時，建議同時設定 `PHASE2_ASSISTANT_PERFILL_PREFIX="<think>\n\n</think>\n\n"`，避免 `<think>` 標籤干擾第二階段對話。第一階段也可設定 `ASSISTANT_PREFILL_PREFIX` 跳過思考過程以加快速度（推理對摘要和角色扮演幫助有限）
-- **自動開場白**：`PHASE1_GREETING=n` 讓AI助理在前 n 個回合建立時主動打招呼，設 `1` 即只有第一回合，設 `-1` 則每次都打招呼
-- **自定義情境種類**：預設只有線上聊天和面對面聊天兩種選項，可以自行編輯`user-prompts.yaml`增加更多與角色互動的模式
+- **Separate Phase 2 model**: Set `PHASE2_BASE_URL` / `PHASE2_MODEL` to use different models for each phase
+- **For reasoning models**: When using `PHASE2_PROMPTING_METHOD=1`, consider setting `PHASE2_ASSISTANT_PERFILL_PREFIX="<think>\n\n</think>\n\n"` to prevent `<think>` tags from interfering with Phase 2 dialogue. You can also set `ASSISTANT_PREFILL_PREFIX` for Phase 1 to skip the thinking process and speed things up (reasoning adds limited value for summaries and roleplay)
+- **Auto-greeting**: `PHASE1_GREETING=n` makes the AI assistant proactively greet you during the first `n` sessions; set to `1` for first session only, `-1` for every session
+- **Custom scenario types**: The default includes only online chat and face-to-face chat. You can edit `user-prompts.yaml` to add more interaction modes with characters
 
-## 使用流程
+## How to Use
 
-1. 註冊帳號並登入
-2. 建立新世界（設定名稱、描述、你在世界中的名字）
-3. 開始新回合，進入**第一階段**
-4. 告訴助理你想做什麼——例如「我想去咖啡廳」或「找個老朋友敘舊」
-5. 助理在世界中找到情境後，會自然地邀請你加入（不會說「我幫你產生一個情境」）
-6. 點擊「進入世界」，開始**第二階段**沉浸式對話
-7. 對話結束後按「結束回合」，系統自動生成摘要存入角色記憶
-8. 下次回來，角色仍然記得你們之前發生的一切
+1. Register an account and log in
+2. Create a new world (set a name, description, and your name in the world)
+3. Start a new session and enter **Phase 1**
+4. Tell the assistant what you'd like to do — e.g., "I want to go to a café" or "catch up with an old friend"
+5. Once the assistant finds a scenario, it will naturally invite you to join (without saying "I'll generate a scenario for you")
+6. Click "Enter World" to begin the **Phase 2** immersive conversation
+7. When finished, click "End Session" — the system auto-generates a summary stored as character memory
+8. Next time you return, the characters still remember everything that happened between you
 
-## 技術架構
+## Tech Stack
 
-- **前端**：Vue 3 + Vite + Pinia + Vue Router + vue-i18n
-- **後端**：Express.js（ESM）+ better-sqlite3
-- **認證**：JWT
-- **Prompt 管理**：YAML 多語言結構 + 自定義模板規則
+- **Frontend**: Vue 3 + Vite + Pinia + Vue Router + vue-i18n
+- **Backend**: Express.js (ESM) + better-sqlite3
+- **Auth**: JWT
+- **Prompt Management**: YAML multilingual structure + custom template rules
 
-## 聲明
+## Disclaimer
 
-本專案是透過AI產生的純文字虛擬聊天互動環境，並非現實世界的真實情況。請勿使用本專案進行任何違法行為。本專案僅原樣提供（請參看LICENSE檔案）。透過本專案程式產生的任何內容皆由使用者自行負責，與專案作者無關。
+This project provides a text-based virtual chat environment generated by AI and does not represent real-world situations. Do not use this project for any illegal activities. This project is provided as-is (see the LICENSE file). Any content generated through this project is the sole responsibility of the user and is unrelated to the project author.
