@@ -5,7 +5,8 @@
   },
   "nav": {
     "back": "← 返回",
-    "logout": "退出登录"
+    "logout": "退出登录",
+    "changePassword": "修改密码"
   },
   "auth": {
     "login": {
@@ -72,6 +73,24 @@
       "confirming": "删除中...",
       "cancel": "取消",
       "failed": "删除失败"
+    },
+    "changePassword": {
+      "title": "修改密码",
+      "current": "当前密码",
+      "currentPlaceholder": "请输入当前密码",
+      "new": "新密码",
+      "newPlaceholder": "请输入新密码（至少6字符）",
+      "confirm": "确认新密码",
+      "confirmPlaceholder": "请再次输入新密码",
+      "submit": "确认修改",
+      "submitting": "修改中...",
+      "cancel": "取消",
+      "success": "密码已成功修改",
+      "error": {
+        "mismatch": "两次输入的新密码不一致",
+        "minLength": "新密码至少需要6个字符",
+        "failed": "修改失败"
+      }
     }
   },
   "world": {
@@ -110,7 +129,8 @@
       "singleLine": "单行模式",
       "readyTitle": "准备开始世界互动！",
       "enterWorld": "进入世界 →",
-      "entering": "进入中..."
+      "entering": "进入中...",
+      "inputHint": "轮到你了，请输入对话"
     },
     "review": {
       "label": "📝 回合摘要",

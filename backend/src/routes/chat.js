@@ -20,6 +20,11 @@ import {
   getRoundsDiaryReviews,
   getSpeakerText,
   getPhase2LastSpeaker,
+  genDiaryCharacter,
+  genDiaryCharacterNames,
+  genDiaryCommandMessages,
+  getDiaryPersistentText,
+  needRandomName,
 } from '../services/worldService.js';
 import { chatCompletion, rawCompletionByStream } from '../services/aiService.js';
 import { getPromptRaw, renderPrompt } from '../services/promptLoader.js';
@@ -116,7 +121,7 @@ async function phase1Assistant(world, round, message, options = {}) {
       temperature: (process.env.PHASE1_TEMPERATURE ? parseFloat(process.env.PHASE1_TEMPERATURE) : undefined),
       max_tokens: (process.env.PHASE1_MAX_TOKENS ? parseInt(process.env.PHASE1_MAX_TOKENS) : undefined),
       assistant_perfill: process.env.PHASE1_ASSISTANT_PERFILL_PREFIX,
-      tools: await buildPhase1Tools(world.locale || 'en'),
+      tools: await buildPhase1Tools(world.id, world.locale || 'en'),
     });
 
     const { content: aiText, tool_calls } = aiResp;
@@ -155,7 +160,55 @@ async function phase1Assistant(world, round, message, options = {}) {
         continue;
       }
 
-      if (cmd.type === 'create_and_invite') {
+      if (cmd.type === 'get_random_character_name') {
+        const reviews = getRoundsDiaryReviews(world.id);
+        const diaryMessages = [...genDiaryCommandMessages(world, reviews), ...phase1];
+        const characters = await genDiaryCharacterNames(diaryMessages, cmd.character_trait, locale, cmd.count * 2 + 3, cmd.count);
+        if (characters)
+          toolResult = `${characters.join(getPromptRaw('seperator_name_list', locale))}`;
+        else
+          toolResult = getPromptRaw('phase1_cmd_random_name_error', locale);
+        phase1.push({ role: 'tool', tool_call_id: tool_call.id, content: toolResult });
+        saveRound(round.id, { phase1_messages: phase1 });
+        continue;
+      } else if (cmd.type === 'create_and_invite') {
+        let newchars = [];
+        if (needRandomName(world.id)) {
+          if (phase1.some(elem => elem.role === 'assistant' && elem.tool_calls && elem.tool_calls.some(tc => tc.type === 'function' && tc.function.name === 'get_random_character_name'))) {
+            for (const elem of phase1) {
+              if (elem.role === 'assistant' && elem.tool_calls) {
+                for (const tc of tool_calls) {
+                  if (tc.type === 'function' && tc.function.name === 'get_random_character_name') {
+                    for (const name of tc.content.split(getPromptRaw('seperator_name_list', locale)).map(n => n.trim()))
+                    newchars.push(name);
+                  }
+                }
+              }
+            }
+          } else {
+            toolResult = getPromptRaw('phase1_cmd_random_name_required', locale);
+            phase1.push({ role: 'tool', tool_call_id: tool_call.id, content: toolResult });
+            saveRound(round.id, { phase1_messages: phase1 });
+            continue;
+          }
+        }
+        if (newchars.length > 0) {
+          const missing = [];
+          for (const name of newchars) {
+            if (cmd.joined_person_names.includes(name)) {
+              if (!cmd.new_persons_long_term_traits || !cmd.new_persons_long_term_traits.some(trait => trait.includes(name))) {
+                if (!systemPrompt.includes(name))
+                  missing.push(name);
+              }
+            }
+          }
+          if (missing.length > 0) {
+            toolResult = renderPrompt('phase1_cmd_missing_traits', locale, { names: missing.join(getPromptRaw('seperator_name_list', locale)) });
+            phase1.push({ role: 'tool', tool_call_id: tool_call.id, content: toolResult });
+            saveRound(round.id, { phase1_messages: phase1 });
+            continue;
+          }
+        }
         const joinClauses = [];
         if (cmd.joined_person_names && cmd.joined_person_names.length > 0) {
           joinClauses.push(`@+(${renderPrompt('tool_gen_primary_participants', locale, { name_list: cmd.joined_person_names })})`);
@@ -325,7 +378,9 @@ router.post('/phase2/user', async (req, res) => {
     db.prepare('UPDATE rounds SET phase2_messages = ?, phase2_meta = ? WHERE id = ?')
     .run(JSON.stringify(phase2), JSON.stringify(meta), roundId);
 
-    res.json({ messages: phase2, event: null, newMessages });
+    // If user tried to skip but no new messages were generated, hint them to input
+    const shouldInputHint = isSkip && newMessages.length <= 0;
+    res.json({ messages: phase2, event: null, newMessages, shouldInputHint });
   }
 
   let _prevNewLine_prevNewLine = -1;

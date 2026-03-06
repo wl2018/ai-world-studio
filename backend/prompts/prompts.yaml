@@ -250,6 +250,11 @@ char_gen_assign_name:
   zh-TW: "再來要寫的日記中有一個「{{description}}」。可以給之前出現過的，也可以給沒出現過的。給我一個名字，不和之前內容衝突即可。"
   zh-CN: "接下来要写的日记中有一个「{{description}}」。可以给之前出现过的，也可以给没出现过的。给我一个名字，不和之前内容冲突即可。"
 
+char_gen_assign_name_many:
+  en: "The next diary entry has a character described as \"{{description}}\". Give them a name — it can be someone who has appeared before or a new person, as long as it doesn't conflict with existing characters. Give me {{count}} possibilities."
+  zh-TW: "再來要寫的日記中有一個「{{description}}」。可以給之前出現過的，也可以給沒出現過的。給我一個名字，不和之前內容衝突即可。給我{{count}}種可能性。"
+  zh-CN: "接下来要写的日记中有一个「{{description}}」。可以给之前出现过的，也可以给没出现过的。给我一个名字，不和之前内容冲突即可。給我{{count}}種可能性。"
+
 char_gen_assign_name_json:
   en: "Now output your answer in JSON format: [{\"name\":\"the name\"}]. The name should not include any additional translations. If the name is in Chinese, always use Traditional Chinese."
   zh-TW: "現在以JSON格式輸出你的答案:[{\"name\":\"名字\"}]。名字不包含額外的翻譯。名字如果是中文的，一律使用繁體中文。"
@@ -443,3 +448,41 @@ interaction_type:  # All chatting style you can use. You can define new one here
     en: ''  # empty string means don't add prompt for chatting context
     zh-TW: ''
     zh-CN: ''
+
+# ---------------------------------------------------------------------------
+# Phase 1: Tool (get_random_character_name) descriptions
+# ---------------------------------------------------------------------------
+
+tool_get_random_character_name_desc:
+  en: "Get a random name for a character with certain traits. To ensure sufficient randomness, this tool must be called before create_and_invite. It can be called one or more times."
+  zh-TW: "取得具有某特質的角色的隨機名字。為確保產生角色名字夠隨機，使用create_and_invite前必須先呼叫此工具。此工具可以呼叫一到多次。"
+  zh-CN: "获取具有某特质的角色的随机名字。为确保产生角色名字够随机，使用create_and_invite前必须先调用此工具。此工具可以调用一到多次。"
+
+tool_get_random_character_name_trait_desc:
+  en: "Description of the character to generate. Does not include the character's name."
+  zh-TW: "欲產生之角色的描述。不包含角色名字。"
+  zh-CN: "欲生成之角色的描述。不包含角色名字。"
+
+tool_get_random_character_name_count_desc:
+  en: "How many names of this type to retrieve."
+  zh-TW: "取得多少個這樣的名字。"
+  zh-CN: "获取多少个这样的名字。"
+
+# ---------------------------------------------------------------------------
+# Phase 1: Tool result messages for get_random_character_name / create_and_invite
+# ---------------------------------------------------------------------------
+
+phase1_cmd_random_name_error:
+  en: "An error occurred. Please proceed directly with create_and_invite."
+  zh-TW: "發生錯誤，請直接使用create_and_invite即可。"
+  zh-CN: "发生错误，请直接使用create_and_invite即可。"
+
+phase1_cmd_random_name_required:
+  en: "Please call get_random_character_name first to obtain random character names."
+  zh-TW: "請先呼叫get_random_character_name取得隨機角色名字。"
+  zh-CN: "请先调用get_random_character_name获取随机角色名字。"
+
+phase1_cmd_missing_traits:
+  en: "Error: the following characters were not given long-term traits in the new_persons_long_term_traits parameter: {{names}}"
+  zh-TW: "錯誤，下列角色並未在new_persons_long_term_traits參數中給予其長期的特質：{{names}}"
+  zh-CN: "错误，下列角色并未在new_persons_long_term_traits参数中给予其长期的特质：{{names}}"

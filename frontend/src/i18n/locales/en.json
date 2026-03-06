@@ -5,7 +5,8 @@
   },
   "nav": {
     "back": "← Back",
-    "logout": "Logout"
+    "logout": "Logout",
+    "changePassword": "Change Password"
   },
   "auth": {
     "login": {
@@ -72,6 +73,24 @@
       "confirming": "Deleting...",
       "cancel": "Cancel",
       "failed": "Deletion failed"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "current": "Current Password",
+      "currentPlaceholder": "Enter your current password",
+      "new": "New Password",
+      "newPlaceholder": "Enter new password (at least 6 characters)",
+      "confirm": "Confirm New Password",
+      "confirmPlaceholder": "Re-enter new password",
+      "submit": "Change Password",
+      "submitting": "Changing...",
+      "cancel": "Cancel",
+      "success": "Password changed successfully",
+      "error": {
+        "mismatch": "New passwords do not match",
+        "minLength": "New password must be at least 6 characters",
+        "failed": "Password change failed"
+      }
     }
   },
   "world": {
@@ -110,7 +129,8 @@
       "singleLine": "Single-line mode",
       "readyTitle": "Ready to enter the world!",
       "enterWorld": "Enter World →",
-      "entering": "Entering..."
+      "entering": "Entering...",
+      "inputHint": "It's your turn, please input your message"
     },
     "review": {
       "label": "📝 Round Summary",

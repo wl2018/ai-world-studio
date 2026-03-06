@@ -15,6 +15,7 @@ import { promises as fsPromises } from 'fs';
 import { loadPrompts, renderPrompt, getPromptRaw } from './promptLoader.js';
 import path from 'path';
 import yaml from 'js-yaml';
+import { type } from 'node:os';
 
 if (!process.env.TEMPERATURE) throw "Please set TEMPERATURE* variables in your .env files.";
 await loadPrompts();
@@ -41,10 +42,32 @@ function getWorld(worldId) {
 }
 
 // Phase 1: Tool definitions for OpenAI function calling format
-export async function buildPhase1Tools(locale = 'en') {
+export async function buildPhase1Tools(worldId, locale = 'en') {
   const _locale = locale;
-  return [
-  {
+  const ret = [];
+  if (needRandomName(worldId))
+    ret.push({
+      type: 'function',
+      function: {
+        name: 'get_random_character_name',
+        description: getPromptRaw('tool_get_random_character_name_desc', _locale),
+        parameters: {
+          type: 'object',
+          properties: {
+            character_trait: {
+              type: 'string',
+              description: getPromptRaw('tool_get_random_character_name_trait_desc', _locale),
+            },
+            count: {
+              type: 'integer',
+              description: getPromptRaw('tool_get_random_character_name_count_desc', _locale),
+            }
+          },
+          required: ['character_trait', 'count'],
+        }
+      }
+    });
+  ret.push({
     type: 'function',
     function: {
       name: 'create_and_invite',
@@ -82,8 +105,8 @@ export async function buildPhase1Tools(locale = 'en') {
         required: ['joined_person_names', 'place'],
       },
     },
-  },
-  ];
+  });
+  return ret;
 }
 
 // Phase 1: Build assistant system prompt
@@ -146,6 +169,22 @@ export function saveRound(roundId, updates) {
   }
   vals.push(roundId);
   db.prepare(`UPDATE rounds SET ${sets.join(', ')} WHERE id = ?`).run(...vals);
+}
+
+export function needRandomName(worldId) {
+  if (process.env.PHASE1_RANDOM_NAME) {
+    const ntimes = parseInt(process.env.PHASE1_RANDOM_NAME);
+    if (ntimes > 0) {
+      const ret = db.prepare('SELECT count(id) AS round_count FROM rounds WHERE world_id = ? AND finished_at IS NOT NULL').get(worldId);
+      return (ret.round_count < ntimes);
+    } else if (ntimes === -1) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
 
 export async function compileDiaryLines(world, inner) {
@@ -529,6 +568,36 @@ export async function genDiaryCharacter(diaryMessages, description, optionString
   }
 }
 
+export async function genDiaryCharacterNames(diaryMessages, description, locale = 'en', count_possibilities, count_get) {
+    let names;
+
+    const originalLength = diaryMessages.length;
+    const mainPrompt = renderPrompt('char_gen_assign_name_many', locale, { description, count: count_possibilities });
+    diaryMessages.push({ role: 'user', content: mainPrompt });
+    const textResponse = await chatCompletion(diaryMessages);
+    diaryMessages.push({ role: 'assistant', content: textResponse });
+
+    const jsonPrompt = getPromptRaw('char_gen_assign_name_json', locale);
+    diaryMessages.push({ role: 'user', content: jsonPrompt });
+    const jsonTextResponse = await chatCompletion(diaryMessages)
+    //diaryMessages.push({ role: 'assistant', content: jsonTextResponse});
+    let obj;
+    try {
+      const cleaned = jsonTextResponse.match(/\[[^\[\]]*\]/)[0]
+      obj = JSON.parse(cleaned);
+      names = obj.map(elem => elem.name);
+    } catch {
+      names = null;
+    }
+    if (!names)
+      return null;
+    while (diaryMessages.length > originalLength)
+      diaryMessages.pop();
+
+    names = shuffle(names);
+    return names.slice(0, count_get);
+}
+
 export async function genDiaryScene(diaryMessages, description, optionString, locale = 'en') {
   if (optionString.includes('='))
     return description;
@@ -585,7 +654,7 @@ export function parsePhase1Command(tool_call) {
     return null;
   }
 
-  if (['create_and_invite'].includes(name)) {
+  if (['get_random_character_name', 'create_and_invite'].includes(name)) {
     return { ...args, type: name };
   }
 

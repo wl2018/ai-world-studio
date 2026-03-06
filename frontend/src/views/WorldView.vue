@@ -244,6 +244,11 @@
                 <span>{{ t('world.phase2.allLeft') }}</span>
                 <span class="status-hint">{{ t('world.phase2.allLeftHint') }}</span>
               </div>
+              <transition name="hint-fade">
+                <div v-if="showInputHint" class="input-hint-banner">
+                  💬 {{ t('world.phase2.inputHint') }}
+                </div>
+              </transition>
               <div class="input-main">
                 <textarea
                   ref="phase2TextareaRef"
@@ -396,6 +401,7 @@ const starting2 = ref(false);
 const finishing = ref(false);
 
 const allCharsLeft = ref(false);
+const showInputHint = ref(false);
 const showDiscardConfirm = ref(false);
 const showFinishConfirm = ref(false);
 const showDeleteConfirm = ref(false);
@@ -527,6 +533,15 @@ async function sendPhase2() {
     });
     activeRound.value.phase2_messages = res.data.messages;
     if (res.data.event === 'all_left') allCharsLeft.value = true;
+    
+    // Show input hint if user tried to skip but should input instead
+    if (res.data.shouldInputHint) {
+      showInputHint.value = true;
+      setTimeout(() => {
+        showInputHint.value = false;
+      }, 3000); // Auto-hide after 3 seconds
+    }
+    
     await nextTick();
     scrollToBottom(sharedContainer.value);
   } finally {
@@ -795,6 +810,32 @@ onMounted(async () => {
 .status-hint { font-size: 11px; opacity: 0.75; }
 .btn-rejoin { border-color: var(--success, #44cc88); color: var(--success, #44cc88); }
 .btn-rejoin:hover { background: rgba(68,204,136,0.08); }
+
+.input-hint-banner { 
+  align-self: flex-start;
+  padding: 8px 14px; 
+  border-radius: 8px; 
+  font-size: 13px; 
+  background: rgba(124, 157, 255, 0.1); 
+  border: 1px solid rgba(124, 157, 255, 0.3); 
+  color: var(--primary, #7c9dff);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hint-fade-enter-active, .hint-fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hint-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.hint-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
+}
 
 .world-meta-field { font-size: 11px; color: var(--text3); line-height: 1.5; margin-top: 5px; border-left: 2px solid var(--border); padding-left: 6px; font-style: italic; }
 

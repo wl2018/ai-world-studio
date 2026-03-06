@@ -5,6 +5,7 @@
       <div class="user-info">
         <span>{{ auth.user?.username }}</span>
         <LanguageSwitcher />
+        <button class="btn btn-sm" @click="openChangePassword">🔑 {{ t('nav.changePassword') }}</button>
         <button class="btn btn-sm" @click="auth.logout(); router.push('/login')">{{ t('nav.logout') }}</button>
       </div>
     </header>
@@ -113,6 +114,33 @@
         </div>
       </div>
     </div>
+
+    <!-- Change Password Modal -->
+    <div v-if="showChangePassword" class="modal-overlay" @click.self="closeChangePassword">
+      <div class="modal">
+        <h2>{{ t('worlds.changePassword.title') }}</h2>
+        <div class="form-group">
+          <label>{{ t('worlds.changePassword.current') }}</label>
+          <input v-model="pwForm.current" type="password" :placeholder="t('worlds.changePassword.currentPlaceholder')" />
+        </div>
+        <div class="form-group">
+          <label>{{ t('worlds.changePassword.new') }}</label>
+          <input v-model="pwForm.new" type="password" :placeholder="t('worlds.changePassword.newPlaceholder')" />
+        </div>
+        <div class="form-group">
+          <label>{{ t('worlds.changePassword.confirm') }}</label>
+          <input v-model="pwForm.confirm" type="password" :placeholder="t('worlds.changePassword.confirmPlaceholder')" />
+        </div>
+        <div v-if="pwError" class="error">{{ pwError }}</div>
+        <div v-if="pwSuccess" class="success-msg">{{ pwSuccess }}</div>
+        <div class="modal-actions">
+          <button class="btn" @click="closeChangePassword">{{ t('worlds.changePassword.cancel') }}</button>
+          <button class="btn btn-primary" @click="changePassword" :disabled="changingPw">
+            {{ changingPw ? t('worlds.changePassword.submitting') : t('worlds.changePassword.submit') }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -150,6 +178,51 @@ function freshForm() {
 const form = ref(freshForm());
 const worldToDelete = ref(null);
 const deleting = ref(false);
+
+// Change Password
+const showChangePassword = ref(false);
+const changingPw = ref(false);
+const pwError = ref('');
+const pwSuccess = ref('');
+const pwForm = ref({ current: '', new: '', confirm: '' });
+
+function openChangePassword() {
+  pwForm.value = { current: '', new: '', confirm: '' };
+  pwError.value = '';
+  pwSuccess.value = '';
+  showChangePassword.value = true;
+}
+
+function closeChangePassword() {
+  showChangePassword.value = false;
+}
+
+async function changePassword() {
+  pwError.value = '';
+  pwSuccess.value = '';
+  if (pwForm.value.new.length < 6) {
+    pwError.value = t('worlds.changePassword.error.minLength');
+    return;
+  }
+  if (pwForm.value.new !== pwForm.value.confirm) {
+    pwError.value = t('worlds.changePassword.error.mismatch');
+    return;
+  }
+  changingPw.value = true;
+  try {
+    await api.put('/auth/password', {
+      currentPassword: pwForm.value.current,
+      newPassword: pwForm.value.new,
+    });
+    pwSuccess.value = t('worlds.changePassword.success');
+    pwForm.value = { current: '', new: '', confirm: '' };
+    setTimeout(() => { showChangePassword.value = false; }, 1500);
+  } catch (e) {
+    pwError.value = e.response?.data?.error || t('worlds.changePassword.error.failed');
+  } finally {
+    changingPw.value = false;
+  }
+}
 
 function openCreate() {
   form.value = freshForm(); // Refresh default locale each time
@@ -369,4 +442,14 @@ onMounted(loadWorlds);
 }
 
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+.success-msg {
+  color: var(--success);
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(72, 199, 142, 0.1);
+  border: 1px solid rgba(72, 199, 142, 0.3);
+  border-radius: 6px;
+}
 </style>
